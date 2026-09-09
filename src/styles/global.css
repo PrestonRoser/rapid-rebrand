@@ -1,31 +1,27 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------ *
- * Brand tokens — red sampled from rapidenergysolutions.net.
+/*
+ * Design tokens.
  *
- * Surfaces are OFF-black, not pure black: a pure #000 page can't express
- * elevation (every card looks pasted on) and causes halation on OLED.
- * Material's dark-theme guidance puts the base near #121212 and lightens
- * as surfaces rise; that's the ladder below.
+ * The red is sampled from the company's existing site. Surfaces are off-black
+ * rather than #000: a pure black page gives you nothing to raise a card
+ * against, and it halates on OLED screens.
  *
- * Two reds on purpose:
- *   red-500 #d70411  brand fill — buttons, bars, keylines. White text on
- *                    it is 5.4:1 (AA). As TEXT on a dark page it is only
- *                    ~3.4:1, so it must not carry small copy.
- *   red-400 #ff4d57  text tint — eyebrows, links, stars. 5.7:1 on the
- *                    page surface, so it clears AA at small sizes.
- * ------------------------------------------------------------------ */
+ * There are two reds because one cannot do both jobs. #d70411 is the fill;
+ * white text on it measures 5.4:1. As text on the page background it measures
+ * 3.4:1 and fails WCAG AA, so small red text uses #ff4d57 at 5.7:1 instead.
+ */
 @theme {
-  --color-red-400: #ff4d57;
-  --color-red-500: #d70411;
-  --color-red-600: #b00109;
+  --color-red-400: #ff4d57; /* text: eyebrows, links, stars */
+  --color-red-500: #d70411; /* fill: buttons, keylines, bars */
+  --color-red-600: #b00109; /* pressed */
 
-  /* Elevation ladder */
-  --color-ink-900: #0e0e11; /* deepest — contrast bands */
-  --color-ink-800: #131316; /* page base */
+  /* Surfaces, darkest to lightest. Higher number sits lower in the stack. */
+  --color-ink-900: #0e0e11; /* contrast bands */
+  --color-ink-800: #131316; /* page background */
   --color-ink-700: #17171b; /* panels */
   --color-ink-600: #1c1c21; /* cards */
-  --color-ink-500: #24242b; /* card hover / inputs */
+  --color-ink-500: #24242b; /* card hover, form controls */
 
   --color-line: rgba(255, 255, 255, 0.09);
   --color-line-strong: rgba(255, 255, 255, 0.16);
@@ -34,9 +30,7 @@
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 
-  /* Type scale — fluid, and deliberately larger than the first pass.
-     Body sits at 17px, leads at 18–22px, per marketing-site convention
-     (Stripe 16–18, Apple 17–21). */
+  /* Fluid type. Body sits at 17px, which is where Stripe and Apple land. */
   --text-hero: clamp(2.75rem, 6.4vw, 5rem);
   --text-h2: clamp(2rem, 3.8vw, 3.25rem);
   --text-h3: clamp(1.25rem, 1.6vw, 1.5rem);
@@ -89,6 +83,7 @@
 }
 
 @layer components {
+  /* Horizontal frame. Every section uses this, so the page shares one measure. */
   .container-page {
     width: 100%;
     max-width: 78rem;
@@ -101,6 +96,7 @@
     }
   }
 
+  /* Vertical step. Sections use this instead of picking their own padding. */
   .section {
     padding-block: 5.5rem;
   }
@@ -110,7 +106,7 @@
     }
   }
 
-  /* Uppercase label above a heading. Uses red-400 so it clears AA at 13px. */
+  /* Small label above a section heading. */
   .eyebrow {
     font-size: 0.8125rem;
     font-weight: 700;
@@ -119,11 +115,12 @@
     color: var(--color-red-400);
   }
 
-  /* ---- Buttons -------------------------------------------------- *
-   * Ghost at rest -> red fill on hover (brand spec). Larger tap
-   * target and a faint rest background so it reads as a control
-   * rather than a bare outline.
-   * -------------------------------------------------------------- */
+  /*
+   * Buttons.
+   *
+   * Ghost at rest, red on hover. The faint rest background keeps it reading as
+   * a control rather than an empty outline.
+   */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -156,7 +153,7 @@
     transform: translateY(1px);
   }
 
-  /* Filled at rest — reserve for the single highest-priority CTA per view. */
+  /* Filled at rest. One per view, on the action you most want taken. */
   .btn-solid {
     background-color: var(--color-red-500);
     border-color: var(--color-red-500);
@@ -181,10 +178,10 @@
     color: var(--color-red-400);
   }
 
-  /* ---- Cards ---------------------------------------------------- *
-   * Raised surface + hairline + inset top highlight. The highlight is
-   * what stops a dark card from reading as a flat rectangle.
-   * -------------------------------------------------------------- */
+  /*
+   * Cards. The inset top highlight is what separates a raised card from a
+   * flat rectangle once the whole page is dark.
+   */
   .card {
     background-color: var(--color-ink-600);
     border: 1px solid var(--color-line);
@@ -208,7 +205,7 @@
     border-top: 1px solid var(--color-line);
   }
 
-  /* Short red keyline used under headings and card titles. */
+  /* Short red bar under a heading or card title. */
   .keyline {
     display: block;
     height: 3px;
@@ -217,12 +214,11 @@
     background-color: var(--color-red-500);
   }
 
-  /* ---- Scroll-driven reveal ------------------------------------- *
-   * Progressive enhancement: sections ease in as they enter the
-   * viewport, using CSS scroll-timelines. No JS, no library, and it
-   * simply doesn't apply where unsupported or where the visitor asks
-   * for reduced motion.
-   * -------------------------------------------------------------- */
+  /*
+   * Sections fade up as they enter the viewport. Scroll timelines are not in
+   * every browser yet, so this is additive: without support the content is
+   * simply there, which is the correct fallback.
+   */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .reveal {
@@ -243,7 +239,7 @@
     }
   }
 
-  /* ---- Review rail ---------------------------------------------- */
+  /* Horizontal review carousel. Snaps card to card, scrollbar hidden. */
   .rail {
     display: grid;
     grid-auto-flow: column;

@@ -1,55 +1,78 @@
-# rapid-rebrand
+# Rapid Energy Solutions
 
-Marketing website for **Rapid Energy Solutions LLC** — an electrical contractor in Platteville,
-Colorado. A clean-room enhancement of the company's existing site, built from scratch with
-**Astro + Tailwind CSS**. Static output, deployed on Vercel.
+Marketing website for Rapid Energy Solutions LLC, an electrical contractor in
+Platteville, Colorado. Static site, built with Astro and Tailwind, deployed on
+Vercel.
 
-Company info and navigation live in [`src/data/site.ts`](./src/data/site.ts); brand colors and
-type live in [`src/styles/global.css`](./src/styles/global.css) (`@theme` block).
+## Requirements
 
-## Stack
+Node 22.12 or newer (`.nvmrc` pins the major version).
 
-| Layer     | Tech                                                        |
-| --------- | ----------------------------------------------------------- |
-| Framework | Astro 7 (static output)                                     |
-| Styling   | Tailwind CSS v4 (`@tailwindcss/vite`)                       |
-| Language  | TypeScript (`astro/tsconfigs/strict`)                       |
-| Hosting   | Vercel — `main` = production, other branches = preview URLs |
-
-## Quick start
+## Getting started
 
 ```sh
 npm install
-npm run dev        # http://localhost:4321
+npm run dev
 ```
 
-## Project structure
-
-```text
-src/
-  layouts/    Layout.astro — <head>, global styles, page shell
-  pages/      one .astro file per route (index.astro → /)
-  components/ reusable .astro components
-  styles/     global.css — Tailwind entry + design tokens
-public/       static assets, served at site root
-```
+The dev server runs at http://localhost:4321 and reloads on save.
 
 ## Scripts
 
-| Command                | Action                                      |
-| ---------------------- | ------------------------------------------- |
-| `npm run dev`          | Dev server at `localhost:4321` (hot reload) |
-| `npm run build`        | Production build to `./dist/`               |
-| `npm run preview`      | Serve the built site locally                |
-| `npm run check`        | Type + content check (`astro check`)        |
-| `npm run format`       | Format all files with Prettier              |
-| `npm run format:check` | Verify formatting without writing           |
+| Command                | Description                                |
+| ---------------------- | ------------------------------------------ |
+| `npm run dev`          | Start the dev server                       |
+| `npm run build`        | Build to `dist/`. This is what Vercel runs |
+| `npm run preview`      | Serve the built output locally             |
+| `npm run check`        | Type and content check via `astro check`   |
+| `npm run format`       | Format with Prettier                       |
+| `npm run format:check` | Verify formatting. CI runs this            |
 
-## Workflow
+## Layout
 
-The full create → run → verify → ship loop is in [`run.md`](./run.md).
-Collaboration rules and the design system live in [`CLAUDE.md`](./CLAUDE.md).
+```
+src/
+  data/site.ts        Company details, navigation, services, values
+  data/reviews.ts     Customer reviews and the aggregate rating
+  layouts/            Page shell: head tags, structured data, header, footer
+  components/         Reusable pieces, one concern each
+  pages/              One file per route
+  styles/global.css   Design tokens and shared component classes
+public/               Served at the site root
+```
+
+Two files carry most of the decisions:
+
+- **`src/data/site.ts`** holds every piece of company information. Change a
+  phone number or a service name here and it updates everywhere.
+- **`src/styles/global.css`** holds the colour, type, and spacing tokens plus
+  the shared `.btn`, `.card`, `.section` and `.container-page` classes. Change
+  the palette here rather than in individual components.
+
+## Content rules
+
+Copy on this site falls into three buckets, and comments in `src/data/` say
+which is which:
+
+1. Taken from the company's existing site or a directory listing.
+2. Written for this build and awaiting client sign-off.
+3. Customer reviews, quoted word for word from public review pages.
+
+Reviews must never be edited, summarised, or invented. The aggregate rating
+shown on the page is the real published figure, not a rounded one.
+
+## Before launch
+
+- Point the contact and careers form `action` attributes at a form handler.
+- Set `site.url` in `src/data/site.ts` to the production domain. It feeds the
+  canonical tag, Open Graph tags, and structured data.
+- Confirm the credential strip in `src/data/site.ts` with the client,
+  particularly anything touching licensing.
+
+## Development workflow
+
+See [run.md](./run.md) for the branch, review, and deploy loop.
 
 ## License
 
-[MIT](./LICENSE) © Preston Roser
+[MIT](./LICENSE)

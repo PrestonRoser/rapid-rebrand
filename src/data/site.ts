@@ -1,14 +1,18 @@
 /**
- * Single source of truth for company info, navigation, and services.
- * Copy marked "verbatim" is taken directly from rapidenergysolutions.net.
- * Everything else is marketing copy written for this enhancement and
- * should be confirmed with the client before going live.
+ * Company details, navigation, and service copy.
+ *
+ * This is the only place any of it is written down. Pages and components read
+ * from here so a phone number or service name changes in one edit.
+ *
+ * Comments mark where copy came from. Anything not marked as taken from the
+ * live site or a directory listing was written for this build and needs the
+ * client to sign off before launch.
  */
 
 export const site = {
   name: "Rapid Energy Solutions",
   legalName: "Rapid Energy Solutions LLC",
-  /** verbatim */
+  /** Taken from the live site. */
   tagline: "Your trusted partner for all your electrical needs",
   url: "https://www.rapidenergysolutions.net",
   phone: "970-535-2381",
@@ -20,18 +24,24 @@ export const site = {
     state: "CO",
     zip: "80651",
   },
-  /** verbatim */
-  hours: "Monday–Friday, 6:30 AM – 5:00 PM",
-  /** from the company's own directory listings */
+  /** Taken from the live site. */
+  hours: "Monday to Friday, 6:30 AM to 5:00 PM",
+  /** Listed on the company's Angi and BBB profiles. */
   serviceAreas: ["Weld County", "Larimer County", "Adams County", "Boulder County"],
 } as const;
 
 /**
- * Credentials sourced from the company's HomeAdvisor profile (read 2026-09-09):
- * https://www.homeadvisor.com/rated.rapidenergysolutions.156594988.html
- * "Business highlights: 10 years of experience" · "Free Estimates: Yes" ·
- * "Licensed*" (HomeAdvisor notes licence claims are self-reported).
- * Verify each with Matt before launch — especially the licence line.
+ * Astro collapses whitespace between adjacent expressions, which drops the
+ * space in `{state} {zip}`. Compose the strings here instead.
+ */
+export const cityStateZip = `${site.address.city}, ${site.address.state} ${site.address.zip}`;
+export const fullAddress = `${site.address.street}, ${cityStateZip}`;
+
+/**
+ * Shown in the strip under the hero. Taken from the company's HomeAdvisor
+ * profile, which lists "10 years of experience" and "Free Estimates: Yes".
+ * That profile also shows "Licensed", but flags licence claims as
+ * self-reported, so no licence badge appears until the client confirms one.
  */
 export const credentials = [
   "10+ years in business",
@@ -39,10 +49,6 @@ export const credentials = [
   "Locally owned & operated",
   "Residential · Commercial · Industrial",
 ] as const;
-
-/** Pre-composed so JSX whitespace collapsing can't drop the spaces. */
-export const cityStateZip = `${site.address.city}, ${site.address.state} ${site.address.zip}`;
-export const fullAddress = `${site.address.street}, ${cityStateZip}`;
 
 export const nav: { label: string; href: string }[] = [
   { label: "Services", href: "/services" },
@@ -54,9 +60,8 @@ export const nav: { label: string; href: string }[] = [
 export type Service = {
   slug: string;
   title: string;
-  /** one-line summary (verbatim source noted where applicable) */
   summary: string;
-  /** illustrative capability list — confirm with client */
+  /** Capability list written for this build. Confirm with the client. */
   points: string[];
 };
 
@@ -64,10 +69,9 @@ export const services: Service[] = [
   {
     slug: "residential",
     title: "Residential",
-    // verbatim: "Whatever your home project may be, Rapid Energy Solutions is
-    // here to turn your dreams into reality."
-    summary:
-      "Whatever your home project may be, we're here to turn your ideas into reality — done safely and to code.",
+    // Live site: "Whatever your home project may be, Rapid Energy Solutions
+    // is here to turn your dreams into reality."
+    summary: "We turn your home project into reality, whatever its size, done safely and to code.",
     points: [
       "Remodels, additions & finished basements",
       "Panel upgrades, rewiring & troubleshooting",
@@ -78,11 +82,11 @@ export const services: Service[] = [
   {
     slug: "commercial",
     title: "Commercial",
-    // verbatim: "Our commercial work spans multiple industries and business
-    // needs. Support all your business' electrical needs from small updates to
-    // full renovations to breaking ground."
+    // Live site: "Our commercial work spans multiple industries and business
+    // needs. Support all your business' electrical needs from small updates
+    // to full renovations to breaking ground."
     summary:
-      "Work that spans multiple industries — from small updates to full renovations to breaking ground.",
+      "We support your business at every stage, from small updates to full renovations to breaking ground.",
     points: [
       "Tenant improvements & build-outs",
       "Full-building renovations",
@@ -93,9 +97,9 @@ export const services: Service[] = [
   {
     slug: "industrial",
     title: "Industrial",
-    // verbatim service label: "Oilfield Electrical / Automation"
+    // Live site lists this service as "Oilfield Electrical / Automation".
     summary:
-      "Oilfield electrical and automation, delivered by crews who know the field and its safety demands.",
+      "We run oilfield electrical and automation with crews who know the field and its safety demands.",
     points: [
       "Oilfield electrical installation",
       "Automation & control systems",
@@ -106,9 +110,9 @@ export const services: Service[] = [
   {
     slug: "hauling-dirt-work",
     title: "Hauling & Dirt Work",
-    // listed as a service on the site
+    // Listed in the live site's navigation.
     summary:
-      "Site prep, trenching, and hauling that keep your electrical project on one schedule and one crew.",
+      "We handle site prep, trenching, and hauling so your project stays on one schedule with one crew.",
     points: [
       "Trenching & backfill",
       "Material & equipment hauling",
@@ -118,11 +122,11 @@ export const services: Service[] = [
   },
 ];
 
-/** verbatim from the About page */
+/** The three values named on the live site's About page. */
 export const values = [
   {
     title: "Accountability",
-    body: "We own our work and our commitments — to clients, to each other, and to the communities we serve.",
+    body: "We own our work and our commitments: to clients, to each other, and to the communities we serve.",
   },
   {
     title: "Responsibility",

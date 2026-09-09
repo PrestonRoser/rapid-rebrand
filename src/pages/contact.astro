@@ -1,13 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
-import { cityStateZip, site } from "../data/site";
+import Field from "../components/Field.astro";
+import { cityStateZip, services, site } from "../data/site";
 
-const fieldClass =
-  "mt-2 w-full rounded-lg border border-line-strong bg-ink-800 px-4 py-3 text-[1.0625rem] text-white placeholder:text-neutral-600 transition-colors focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/35";
-const labelClass = "text-sm font-semibold text-neutral-300";
-
-const details = [
+const contactMethods = [
   ["Call", site.phone, site.phoneHref],
   ["Email", site.email, `mailto:${site.email}`],
 ];
@@ -27,7 +24,7 @@ const details = [
     <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
       <div class="divide-y divide-line">
         {
-          details.map(([label, value, href]) => (
+          contactMethods.map(([label, value, href]) => (
             <div class="py-6 first:pt-0">
               <p class="text-xs font-bold tracking-[0.18em] text-neutral-500 uppercase">{label}</p>
               <a
@@ -52,50 +49,23 @@ const details = [
         </div>
       </div>
 
-      {/* Wire `action` to a form handler (Formspree, Vercel/Netlify Forms, etc.) before launch. */}
+      {/* action is a placeholder. Point it at the form handler before launch. */}
       <form method="post" action="#" class="card p-7 sm:p-9">
         <div class="grid gap-5 sm:grid-cols-2">
-          <div>
-            <label for="name" class={labelClass}>Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autocomplete="name"
-              required
-              class={fieldClass}
-            />
-          </div>
-          <div>
-            <label for="phone" class={labelClass}>Phone</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" class={fieldClass} />
-          </div>
+          <Field id="name" label="Full name" autocomplete="name" required />
+          <Field id="phone" label="Phone" type="tel" autocomplete="tel" required />
         </div>
-        <div class="mt-5">
-          <label for="email" class={labelClass}>Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            class={fieldClass}
-          />
-        </div>
-        <div class="mt-5">
-          <label for="type" class={labelClass}>Project type</label>
-          <select id="type" name="type" class={fieldClass}>
-            <option>Residential</option>
-            <option>Commercial</option>
-            <option>Industrial</option>
-            <option>Hauling &amp; dirt work</option>
-            <option>Something else</option>
-          </select>
-        </div>
-        <div class="mt-5">
-          <label for="message" class={labelClass}>How can we help?</label>
-          <textarea id="message" name="message" rows="5" required class={fieldClass}></textarea>
-        </div>
+        <Field id="email" label="Email" type="email" autocomplete="email" required class="mt-5" />
+        <Field
+          id="type"
+          label="Project type"
+          type="select"
+          required
+          class="mt-5"
+          options={[...services.map((service) => service.title), "Something else"]}
+        />
+        <Field id="message" label="How can we help?" type="textarea" required class="mt-5" />
+
         <button type="submit" class="btn btn-solid mt-7 w-full sm:w-auto">Send message</button>
         <p class="mt-4 text-sm text-neutral-400">
           Prefer to talk it through? Call{" "}

@@ -10,7 +10,7 @@ const showcase = [
   {
     eyebrow: "How we work",
     title: "Solutions built around you",
-    body: "We work closely with every client to tailor solutions that align with their individual needs, budgets, and desired outcomes — not a one-size-fits-all bid. You get technical expertise and hands-on project management from the first walkthrough.",
+    body: "We work closely with every client to tailor solutions that align with their individual needs, budgets, and desired outcomes, not a one-size-fits-all bid. You get technical expertise and hands-on project management from the first walkthrough.",
     href: "/services",
     linkText: "See our process",
     panelTitle: "On every project",
@@ -60,7 +60,7 @@ const showcase = [
       </h1>
       <p class="mt-7 max-w-2xl text-lead text-pretty text-neutral-300">
         A locally owned electrical contractor serving residential, commercial, and industrial
-        clients across the Front Range — with meticulous attention to detail and a safety-first crew
+        clients across the Front Range, with meticulous attention to detail and a safety-first crew
         on every job.
       </p>
 
@@ -69,7 +69,7 @@ const showcase = [
         <a href={site.phoneHref} class="btn">Call {site.phone}</a>
       </div>
 
-      {/* Rating proof, immediately under the CTAs */}
+      {/* Rating sits under the CTAs, where it backs up the ask. */}
       <a
         href={reviewSummary.href}
         target="_blank"
@@ -99,9 +99,9 @@ const showcase = [
       class="container-page grid divide-y divide-line sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x"
     >
       {
-        credentials.map((c) => (
+        credentials.map((credential) => (
           <p class="flex min-h-20 items-center justify-center px-4 py-6 text-center text-sm font-bold tracking-[0.08em] text-neutral-300 uppercase">
-            {c}
+            {credential}
           </p>
         ))
       }
@@ -114,7 +114,7 @@ const showcase = [
       <p class="eyebrow lg:pt-3">Who we are</p>
       <div class="max-w-3xl space-y-6 text-lead text-pretty text-neutral-300">
         <p>
-          Rising demand for quality electricians is real — and so is the gap in service that comes
+          Rising demand for quality electricians is real, and so is the gap in service that comes
           with it. We started Rapid Energy Solutions to close that gap: to give homeowners,
           businesses, and industrial clients a contractor who shows up, communicates clearly, and
           does the work right.
@@ -144,7 +144,11 @@ const showcase = [
       </div>
 
       <div class="reveal mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {services.map((service, i) => <ServiceCard service={service} index={i + 1} detailed />)}
+        {
+          services.map((service, index) => (
+            <ServiceCard service={service} index={index + 1} detailed />
+          ))
+        }
       </div>
     </div>
   </section>
@@ -153,10 +157,10 @@ const showcase = [
 
   {/* Alternating showcase blocks */}
   {
-    showcase.map((block, i) => (
-      <section class:list={["section border-t border-line", i % 2 === 1 && "bg-ink-900"]}>
+    showcase.map((block, index) => (
+      <section class:list={["section border-t border-line", index % 2 === 1 && "bg-ink-900"]}>
         <div class="container-page reveal grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <div class:list={[i % 2 === 1 && "lg:order-2"]}>
+          <div class:list={[index % 2 === 1 && "lg:order-2"]}>
             <p class="eyebrow">{block.eyebrow}</p>
             <h2 class="mt-5 text-h2 leading-[1.05] font-bold tracking-tight text-balance text-white">
               {block.title}
@@ -171,7 +175,7 @@ const showcase = [
               {block.panelTitle}
             </p>
             <ul class="mt-6 space-y-5">
-              {block.panelPoints.map((p) => (
+              {block.panelPoints.map((point) => (
                 <li class="flex gap-4 border-t border-line pt-5 text-[1.0625rem] text-neutral-200 first:border-0 first:pt-0">
                   <svg
                     class="mt-1 size-5 shrink-0 text-red-400"
@@ -187,7 +191,7 @@ const showcase = [
                       stroke-linejoin="round"
                     />
                   </svg>
-                  {p}
+                  {point}
                 </li>
               ))}
             </ul>
@@ -207,17 +211,17 @@ const showcase = [
         </h2>
         <p class="mt-5 text-lead text-pretty text-neutral-300">
           Safety is central to how we operate. Safety trainings and regular safety inspections
-          protect our employees, our clients, and the communities we work in — on every job, no
+          protect our employees, our clients, and the communities we work in, on every job, no
           exceptions.
         </p>
       </div>
       <dl class="reveal mt-14 grid gap-5 md:grid-cols-3">
         {
-          values.map((v) => (
+          values.map((value) => (
             <div class="card p-8">
-              <dt class="text-h3 font-bold text-white">{v.title}</dt>
+              <dt class="text-h3 font-bold text-white">{value.title}</dt>
               <span class="keyline mt-4" />
-              <dd class="mt-5 text-[1.0625rem] leading-relaxed text-neutral-300">{v.body}</dd>
+              <dd class="mt-5 text-[1.0625rem] leading-relaxed text-neutral-300">{value.body}</dd>
             </div>
           ))
         }
@@ -237,7 +241,7 @@ const showcase = [
         </h2>
         <p class="mt-5 max-w-xl text-lead text-pretty text-neutral-300">
           We're a locally owned contractor committed to our employees, their families, and our
-          communities. Electricians, apprentices, and students — there's a place for you.
+          communities. Electricians, apprentices, and students: there's a place for you.
         </p>
       </div>
       <a href="/careers" class="btn shrink-0">Apply now</a>

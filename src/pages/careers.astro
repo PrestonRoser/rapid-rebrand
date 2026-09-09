@@ -1,16 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
+import Field from "../components/Field.astro";
 import { site, values } from "../data/site";
-
-const fieldClass =
-  "mt-2 w-full rounded-lg border border-line-strong bg-ink-800 px-4 py-3 text-[1.0625rem] text-white placeholder:text-neutral-600 transition-colors focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/35";
-const labelClass = "text-sm font-semibold text-neutral-300";
 ---
 
 <Layout
   title="Careers"
-  description="Join the Rapid Energy Solutions team in Platteville, Colorado. Electricians and apprentices — plus an internship program for students."
+  description="Join the Rapid Energy Solutions team in Platteville, Colorado. Electricians and apprentices, plus an internship program for students."
 >
   <PageHero
     eyebrow="Careers"
@@ -28,7 +25,7 @@ const labelClass = "text-sm font-semibold text-neutral-300";
           </h2>
           <p class="mt-5 text-lead text-pretty text-neutral-300">
             We're a locally owned contractor committed to our employees, their families, and our
-            communities — with real investment in safety, training, and the people doing the work.
+            communities, with real investment in safety, training, and the people doing the work.
           </p>
         </div>
 
@@ -41,69 +38,50 @@ const labelClass = "text-sm font-semibold text-neutral-300";
 
         <dl class="divide-y divide-line">
           {
-            values.map((v) => (
+            values.map((value) => (
               <div class="py-5 first:pt-0">
-                <dt class="text-lg font-bold text-white">{v.title}</dt>
-                <dd class="mt-1.5 text-[1.0625rem] leading-relaxed text-neutral-300">{v.body}</dd>
+                <dt class="text-lg font-bold text-white">{value.title}</dt>
+                <dd class="mt-1.5 text-[1.0625rem] leading-relaxed text-neutral-300">
+                  {value.body}
+                </dd>
               </div>
             ))
           }
         </dl>
       </div>
 
-      {/* Wire `action` to your applicant intake (email, ATS, or form handler) before launch. */}
+      {/* action is a placeholder. Point it at the applicant intake before launch. */}
       <form method="post" action="#" class="card p-7 sm:p-9">
         <div class="grid gap-5 sm:grid-cols-2">
-          <div>
-            <label for="name" class={labelClass}>Full name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autocomplete="name"
-              required
-              class={fieldClass}
-            />
-          </div>
-          <div>
-            <label for="phone" class={labelClass}>Phone</label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              autocomplete="tel"
-              required
-              class={fieldClass}
-            />
-          </div>
+          <Field id="name" label="Full name" autocomplete="name" required />
+          <Field id="phone" label="Phone" type="tel" autocomplete="tel" required />
         </div>
-        <div class="mt-5">
-          <label for="email" class={labelClass}>Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-            class={fieldClass}
-          />
-        </div>
-        <div class="mt-5">
-          <label for="role" class={labelClass}>I'm applying as</label>
-          <select id="role" name="role" class={fieldClass}>
-            <option>Journeyman electrician</option>
-            <option>Apprentice electrician</option>
-            <option>Laborer / dirt work</option>
-            <option>Intern (student)</option>
-            <option>Office / operations</option>
-          </select>
-        </div>
-        <div class="mt-5">
-          <label for="about" class={labelClass}>Tell us about your experience</label>
-          <textarea id="about" name="about" rows="5" required class={fieldClass}></textarea>
-        </div>
-        <button type="submit" class="btn btn-solid mt-7 w-full sm:w-auto">Submit application</button
-        >
+        <Field id="email" label="Email" type="email" autocomplete="email" required class="mt-5" />
+        <Field
+          id="role"
+          label="I'm applying as"
+          type="select"
+          required
+          class="mt-5"
+          options={[
+            "Journeyman electrician",
+            "Apprentice electrician",
+            "Laborer or dirt work",
+            "Intern (student)",
+            "Office or operations",
+          ]}
+        />
+        <Field
+          id="experience"
+          label="Tell us about your experience"
+          type="textarea"
+          required
+          class="mt-5"
+        />
+
+        <button type="submit" class="btn btn-solid mt-7 w-full sm:w-auto">
+          Submit application
+        </button>
         <p class="mt-4 text-sm text-neutral-400">
           Questions? Email{" "}
           <a href={`mailto:${site.email}`} class="link-red font-semibold underline">{site.email}</a

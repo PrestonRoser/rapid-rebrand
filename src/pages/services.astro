@@ -8,7 +8,7 @@ import { services } from "../data/site";
 const steps = [
   [
     "Scope & estimate",
-    "We walk the job, talk through your goals and budget, and put together a clear, itemized estimate — no surprises later.",
+    "We walk the job, talk through your goals and budget, and put together a clear, itemized estimate, with no surprises later.",
   ],
   [
     "Schedule & permitting",
@@ -27,17 +27,21 @@ const steps = [
 
 <Layout
   title="Services"
-  description="Residential, commercial, industrial electrical, plus hauling and dirt work — from small projects to large remodels to brand-new builds."
+  description="Residential, commercial, industrial electrical, plus hauling and dirt work, from small projects to large remodels to brand-new builds."
 >
   <PageHero
     eyebrow="Our services"
     title="Electrical work for every scope"
-    lead="Small projects, large remodels, brand-new builds, and commercial work — handled with meticulous attention to detail and dedication to customer satisfaction."
+    lead="Small projects, large remodels, brand-new builds, and commercial work, handled with meticulous attention to detail and dedication to customer satisfaction."
   />
 
   <section class="section">
     <div class="container-page reveal grid gap-5 sm:grid-cols-2">
-      {services.map((service, i) => <ServiceCard service={service} index={i + 1} detailed />)}
+      {
+        services.map((service, index) => (
+          <ServiceCard service={service} index={index + 1} detailed />
+        ))
+      }
     </div>
   </section>
 
@@ -51,10 +55,10 @@ const steps = [
       </div>
       <ol class="reveal border-t border-line">
         {
-          steps.map(([title, body], i) => (
+          steps.map(([title, body], index) => (
             <li class="flex flex-col gap-2 border-b border-line py-7 sm:flex-row sm:gap-8">
               <span class="font-mono text-sm font-bold text-red-400 sm:pt-1">
-                {String(i + 1).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")}
               </span>
               <div>
                 <h3 class="text-h3 font-bold text-white">{title}</h3>

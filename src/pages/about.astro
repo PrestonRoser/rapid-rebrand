@@ -33,7 +33,7 @@ const glance = [
         </h2>
         <div class="mt-7 space-y-6 text-lead text-pretty text-neutral-300">
           <p>
-            Rising demand for quality electricians is real — and so is the gap in service that comes
+            Rising demand for quality electricians is real, and so is the gap in service that comes
             with it. We started Rapid Energy Solutions to close that gap: to give homeowners,
             businesses, and industrial clients a contractor who shows up, communicates clearly, and
             does the work right.
@@ -45,7 +45,7 @@ const glance = [
             individual needs, budgets, and desired outcomes.
           </p>
           <p>
-            Our team provides technical expertise, project management, and ongoing support — because
+            Our team provides technical expertise, project management, and ongoing support, because
             the relationship shouldn't end when the final inspection is signed.
           </p>
         </div>
@@ -83,11 +83,11 @@ const glance = [
       </div>
       <dl class="reveal mt-14 grid gap-5 md:grid-cols-3">
         {
-          values.map((v) => (
+          values.map((value) => (
             <div class="card p-8">
-              <dt class="text-h3 font-bold text-white">{v.title}</dt>
+              <dt class="text-h3 font-bold text-white">{value.title}</dt>
               <span class="keyline mt-4" />
-              <dd class="mt-5 text-[1.0625rem] leading-relaxed text-neutral-300">{v.body}</dd>
+              <dd class="mt-5 text-[1.0625rem] leading-relaxed text-neutral-300">{value.body}</dd>
             </div>
           ))
         }

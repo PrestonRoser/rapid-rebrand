@@ -1,18 +1,14 @@
 /**
- * Customer reviews.
+ * Customer reviews shown on the home page.
  *
- * PROVENANCE — every quote below is VERBATIM from a public review page,
- * read on 2026-09-09. Reviewer names are exactly as the platform displays
- * them (first name + last initial). Nothing here is paraphrased, composited,
- * or invented; do not add a review that isn't copied from a real source.
+ * Every quote is copied word for word from a public review page, read on
+ * 2026-09-09. Names appear exactly as the platform displays them. Do not add
+ * a review that has not been copied from a real source, and do not edit the
+ * wording of one that has.
  *
- *   HomeAdvisor: https://www.homeadvisor.com/rated.rapidenergysolutions.156594988.html
- *   Google (via Birdeye): https://reviews.birdeye.com/rapid-energy-solutions-llc-166951437962584
- *
- * The aggregate below is HomeAdvisor's real figure — 4.6, not 5.0. Eleven
- * reviews: ten 5-star and one 1-star (a Dec 2020 billing dispute). We show
- * the honest average and link out to the full list rather than implying a
- * perfect record.
+ * Sources:
+ *   HomeAdvisor  https://www.homeadvisor.com/rated.rapidenergysolutions.156594988.html
+ *   Google       https://reviews.birdeye.com/rapid-energy-solutions-llc-166951437962584
  */
 
 export type Review = {
@@ -21,10 +17,15 @@ export type Review = {
   date: string;
   source: "HomeAdvisor" | "Google";
   rating: 5;
-  /** job value the platform displayed, if any */
+  /** Job value, where the platform published one. */
   amount?: string;
 };
 
+/**
+ * HomeAdvisor's published average across 11 reviews: ten at 5 stars and one
+ * at 1 star (a billing dispute from Dec 2020). Show the real 4.6 and link to
+ * the full list rather than implying a clean sweep.
+ */
 export const reviewSummary = {
   rating: "4.6",
   count: 11,
@@ -52,7 +53,7 @@ export const reviews: Review[] = [
   },
   {
     quote:
-      "Matt and his team did an amazing job. We had them install recessed lighting in a few areas of our home and anticipated having a tremendous amount of drywall work to do afterwards — lo and behold the guys found a way to install the new LED cans with only 2 small patches in the drywall! They were smart, kind, and cleaned up after themselves once the work was done. Highly recommend.",
+      "Matt and his team did an amazing job. We had them install recessed lighting in a few areas of our home and anticipated having a tremendous amount of drywall work to do afterwards... lo and behold the guys found a way to install the new LED cans with only 2 small patches in the drywall! They were smart, kind, and cleaned up after themselves once the work was done. Highly recommend.",
     name: "Emily S.",
     date: "Google review",
     source: "Google",

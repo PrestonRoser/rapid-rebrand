@@ -1,12 +1,11 @@
 ---
 /**
- * The supplied logo is a stacked lockup (RAPID over "energy solutions",
- * ~1.77:1). Shrunk to nav height the sub-wordmark becomes illegible, so the
- * header pairs the R mark with a typeset wordmark, and the full lockup is
- * used where there's room (footer).
+ * The supplied logo is a stacked lockup, roughly 1.77:1. At nav height the
+ * "energy solutions" line stops being readable, so the header shows the R
+ * mark beside a typeset wordmark and the footer shows the full lockup.
  *
- * `logo-dark.webp` is a recoloured variant — the original's "APID" is black
- * and would disappear on this page.
+ * Both files are recoloured versions of the original, whose "APID" is black
+ * and would disappear against this background.
  */
 interface Props {
   variant?: "mark" | "full";
@@ -30,9 +29,9 @@ const { variant = "mark", class: className = "" } = Astro.props;
         src="/images/mark.webp"
         alt=""
         aria-hidden="true"
-        width="256"
-        height="256"
-        class="h-9 w-9 shrink-0"
+        width="218"
+        height="320"
+        class="h-11 w-auto shrink-0"
       />
       <span class="leading-none">
         <span class="block text-[0.95rem] font-extrabold tracking-[0.02em] text-white uppercase">

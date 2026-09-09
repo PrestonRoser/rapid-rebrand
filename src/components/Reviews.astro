@@ -16,7 +16,7 @@ const stars = (n: number) => Array.from({ length: n });
           What customers say
         </h2>
         <p class="mt-5 text-lead text-pretty text-neutral-300">
-          Homeowners, general contractors, and business owners across the Front Range — in their own
+          Homeowners, general contractors, and business owners across the Front Range, in their own
           words.
         </p>
       </div>
@@ -86,31 +86,31 @@ const stars = (n: number) => Array.from({ length: n });
       aria-label="Customer reviews, scrollable"
     >
       {
-        reviews.map((r) => (
+        reviews.map((review) => (
           <figure class="card flex h-full flex-col p-7">
             <div class="flex items-center justify-between">
               <div class="flex gap-0.5 text-red-400" aria-hidden="true">
-                {stars(r.rating).map(() => (
+                {stars(review.rating).map(() => (
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
                   </svg>
                 ))}
               </div>
               <span class="text-[0.7rem] font-semibold tracking-[0.14em] text-neutral-500 uppercase">
-                {r.source}
+                {review.source}
               </span>
             </div>
-            <span class="sr-only">{r.rating} out of 5 stars</span>
+            <span class="sr-only">{review.rating} out of 5 stars</span>
 
             <blockquote class="mt-5 flex-1 text-[1.0625rem] leading-relaxed text-neutral-200">
-              “{r.quote}”
+              “{review.quote}”
             </blockquote>
 
             <figcaption class="mt-6 border-t border-line pt-5">
-              <span class="block font-semibold text-white">{r.name}</span>
+              <span class="block font-semibold text-white">{review.name}</span>
               <span class="mt-0.5 block text-sm text-neutral-400">
-                {r.date}
-                {r.amount && <> · {r.amount} project</>}
+                {review.date}
+                {review.amount && <> · {review.amount} project</>}
               </span>
             </figcaption>
           </figure>
