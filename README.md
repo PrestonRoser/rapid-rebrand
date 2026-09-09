@@ -1,43 +1,51 @@
-# Astro Starter Kit: Minimal
+# rapid-rebrand
+
+A fast, standalone marketing/brand site built from scratch with **Astro + Tailwind CSS**.
+Static output, deployed on Vercel.
+
+## Stack
+
+| Layer     | Tech                                                        |
+| --------- | ----------------------------------------------------------- |
+| Framework | Astro 7 (static output)                                     |
+| Styling   | Tailwind CSS v4 (`@tailwindcss/vite`)                       |
+| Language  | TypeScript (`astro/tsconfigs/strict`)                       |
+| Hosting   | Vercel — `main` = production, other branches = preview URLs |
+
+## Quick start
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev        # http://localhost:4321
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+  layouts/    Layout.astro — <head>, global styles, page shell
+  pages/      one .astro file per route (index.astro → /)
+  components/ reusable .astro components
+  styles/     global.css — Tailwind entry + design tokens
+public/       static assets, served at site root
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Scripts
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command                | Action                                      |
+| ---------------------- | ------------------------------------------- |
+| `npm run dev`          | Dev server at `localhost:4321` (hot reload) |
+| `npm run build`        | Production build to `./dist/`               |
+| `npm run preview`      | Serve the built site locally                |
+| `npm run check`        | Type + content check (`astro check`)        |
+| `npm run format`       | Format all files with Prettier              |
+| `npm run format:check` | Verify formatting without writing           |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Workflow
 
-## 🧞 Commands
+The full create → run → verify → ship loop is in [`run.md`](./run.md).
+Collaboration rules and the design system live in [`CLAUDE.md`](./CLAUDE.md).
 
-All commands are run from the root of the project, from a terminal:
+## License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[MIT](./LICENSE) © Preston Roser

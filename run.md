@@ -1,4 +1,5 @@
 <!-- v1.0 | 2026-09-08 | create / run / verify / ship workflow for rapid-rebrand -->
+
 # run.md — Working Process
 
 The full loop for this site, in linear order. Framework: **Astro 7 + Tailwind v4**, static
@@ -10,15 +11,15 @@ Project root: `~/Projects/rapid-rebrand`
 
 ## 0. One-time orientation
 
-| Thing | Where |
-|---|---|
-| Routes | `src/pages/*.astro` — one file per URL (`about.astro` → `/about`) |
-| Reusable UI | `src/components/*.astro` |
-| Page shell (`<head>`, nav, footer) | `src/layouts/Layout.astro` |
-| Design tokens + global CSS | `src/styles/global.css` (`@theme` block for colors/fonts/spacing) |
-| Static files (images, fonts, favicon) | `public/` → served at site root (`public/logo.svg` → `/logo.svg`) |
-| Build output (never edit, never commit) | `dist/` (git-ignored) |
-| Dev server URL | http://localhost:4321 |
+| Thing                                   | Where                                                             |
+| --------------------------------------- | ----------------------------------------------------------------- |
+| Routes                                  | `src/pages/*.astro` — one file per URL (`about.astro` → `/about`) |
+| Reusable UI                             | `src/components/*.astro`                                          |
+| Page shell (`<head>`, nav, footer)      | `src/layouts/Layout.astro`                                        |
+| Design tokens + global CSS              | `src/styles/global.css` (`@theme` block for colors/fonts/spacing) |
+| Static files (images, fonts, favicon)   | `public/` → served at site root (`public/logo.svg` → `/logo.svg`) |
+| Build output (never edit, never commit) | `dist/` (git-ignored)                                             |
+| Dev server URL                          | http://localhost:4321                                             |
 
 Node: `>=22.12` (see `package.json` `engines`).
 
@@ -54,14 +55,14 @@ Only restart the dev server when you change `astro.config.mjs` or install a pack
 
 Decide where the change lives:
 
-| You want to… | Touch |
-|---|---|
-| Add a page | new file in `src/pages/` — import `Layout`, fill the `<slot />` |
-| Change text/layout on one page | that page's file in `src/pages/` |
-| Change something on every page (nav, footer, `<head>`) | `src/layouts/Layout.astro` or a component it renders |
-| Build a reusable block | new file in `src/components/`, `import` it where needed |
-| Adjust colors / fonts / spacing scale | `@theme` tokens in `src/styles/global.css` — change once, applies everywhere |
-| Add an image | drop in `public/images/`, reference as `/images/name.webp`, set `width`/`height` |
+| You want to…                                           | Touch                                                                            |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| Add a page                                             | new file in `src/pages/` — import `Layout`, fill the `<slot />`                  |
+| Change text/layout on one page                         | that page's file in `src/pages/`                                                 |
+| Change something on every page (nav, footer, `<head>`) | `src/layouts/Layout.astro` or a component it renders                             |
+| Build a reusable block                                 | new file in `src/components/`, `import` it where needed                          |
+| Adjust colors / fonts / spacing scale                  | `@theme` tokens in `src/styles/global.css` — change once, applies everywhere     |
+| Add an image                                           | drop in `public/images/`, reference as `/images/name.webp`, set `width`/`height` |
 
 Work against `localhost:4321` as you go. Keep to the design system in `CLAUDE.md`.
 
@@ -70,13 +71,17 @@ Work against `localhost:4321` as you go. Keep to the design system in `CLAUDE.md
 Run these in order. All must pass.
 
 ```bash
-# 1. Type + content check — broken links, invalid props, TS errors
-npx astro check
+# 1. Formatting
+npm run format:check     # or `npm run format` to auto-fix
 
-# 2. Production build — this is exactly what Vercel runs
+# 2. Production build — this is exactly what Vercel runs. The real gate.
 npm run build
 
-# 3. Preview the built output (not the dev server)
+# 3. Type + content check — broken links, invalid props, TS errors
+npm run check            # first run downloads the language server and can be slow;
+                         # if it hangs, Ctrl-C and re-run once — the build above is authoritative
+
+# 4. Preview the built output (not the dev server)
 npm run preview          # serves dist/ at http://localhost:4321
 ```
 
@@ -163,7 +168,7 @@ After that, step 8–9 above is the whole deploy story — push a branch, open a
 git checkout main && git pull --ff-only origin main
 git checkout -b feat/thing
 npm run dev                              # build against localhost:4321
-npx astro check && npm run build && npm run preview   # all must pass + eyeball
+npm run format:check && npm run build && npm run check && npm run preview   # all pass + eyeball
 git add -A && git commit -m "feat: thing"
 git push -u origin feat/thing
 gh pr create --fill                      # review Vercel preview link
@@ -174,11 +179,11 @@ gh pr merge --squash --delete-branch     # → live in production
 
 ## Troubleshooting
 
-| Symptom | Check |
-|---|---|
-| Tailwind classes do nothing | `src/styles/global.css` has `@import "tailwindcss";` and `Layout.astro` imports `global.css` |
-| Styles stale after config change | restart `npm run dev` (config changes aren't hot-reloaded) |
-| Build fails on Vercel but works locally | Node version mismatch — match `package.json` `engines`; run `npm run build` on a clean `npm ci` |
-| `dist/` or `node_modules/` showing in `git status` | check `.gitignore` — both should be listed |
-| Image causes layout shift | add explicit `width` and `height` attributes |
-| Port 4321 in use | `npm run dev -- --port 4322` |
+| Symptom                                            | Check                                                                                           |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Tailwind classes do nothing                        | `src/styles/global.css` has `@import "tailwindcss";` and `Layout.astro` imports `global.css`    |
+| Styles stale after config change                   | restart `npm run dev` (config changes aren't hot-reloaded)                                      |
+| Build fails on Vercel but works locally            | Node version mismatch — match `package.json` `engines`; run `npm run build` on a clean `npm ci` |
+| `dist/` or `node_modules/` showing in `git status` | check `.gitignore` — both should be listed                                                      |
+| Image causes layout shift                          | add explicit `width` and `height` attributes                                                    |
+| Port 4321 in use                                   | `npm run dev -- --port 4322`                                                                    |

@@ -2,6 +2,10 @@
   "name": "rapid-rebrand",
   "type": "module",
   "version": "0.0.1",
+  "description": "A fast, standalone marketing/brand site built with Astro + Tailwind CSS.",
+  "author": "Preston Roser",
+  "license": "MIT",
+  "private": true,
   "engines": {
     "node": ">=22.12.0"
   },
@@ -9,12 +13,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "astro": "astro"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1"
   },
   "allowScripts": {
     "esbuild": true
