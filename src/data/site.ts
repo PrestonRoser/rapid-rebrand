@@ -26,6 +26,20 @@ export const site = {
   serviceAreas: ["Weld County", "Larimer County", "Adams County", "Boulder County"],
 } as const;
 
+/**
+ * Credentials sourced from the company's HomeAdvisor profile (read 2026-09-09):
+ * https://www.homeadvisor.com/rated.rapidenergysolutions.156594988.html
+ * "Business highlights: 10 years of experience" · "Free Estimates: Yes" ·
+ * "Licensed*" (HomeAdvisor notes licence claims are self-reported).
+ * Verify each with Matt before launch — especially the licence line.
+ */
+export const credentials = [
+  "10+ years in business",
+  "Free estimates",
+  "Locally owned & operated",
+  "Residential · Commercial · Industrial",
+] as const;
+
 /** Pre-composed so JSX whitespace collapsing can't drop the spaces. */
 export const cityStateZip = `${site.address.city}, ${site.address.state} ${site.address.zip}`;
 export const fullAddress = `${site.address.street}, ${cityStateZip}`;

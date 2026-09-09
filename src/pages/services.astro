@@ -36,27 +36,31 @@ const steps = [
   />
 
   <section class="section">
-    <div class="container-page grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2">
+    <div class="container-page reveal grid gap-5 sm:grid-cols-2">
       {services.map((service, i) => <ServiceCard service={service} index={i + 1} detailed />)}
     </div>
   </section>
 
-  <section class="section border-t border-white/10 bg-black">
-    <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-      <div>
+  <section class="section border-t border-line bg-ink-900">
+    <div class="container-page grid gap-12 lg:grid-cols-[auto_1fr] lg:gap-20">
+      <div class="reveal lg:max-w-xs">
         <p class="eyebrow">The process</p>
-        <h2 class="mt-4 text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">
+        <h2 class="mt-5 text-h2 leading-[1.05] font-bold tracking-tight text-balance text-white">
           How a project runs
         </h2>
       </div>
-      <ol class="border-t border-white/10">
+      <ol class="reveal border-t border-line">
         {
           steps.map(([title, body], i) => (
-            <li class="flex gap-6 border-b border-white/10 py-6">
-              <span class="font-mono text-sm text-red-500">{String(i + 1).padStart(2, "0")}</span>
+            <li class="flex flex-col gap-2 border-b border-line py-7 sm:flex-row sm:gap-8">
+              <span class="font-mono text-sm font-bold text-red-400 sm:pt-1">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <div>
-                <h3 class="font-semibold text-white">{title}</h3>
-                <p class="mt-1.5 text-sm leading-relaxed text-neutral-400">{body}</p>
+                <h3 class="text-h3 font-bold text-white">{title}</h3>
+                <p class="mt-2 max-w-2xl text-[1.0625rem] leading-relaxed text-neutral-300">
+                  {body}
+                </p>
               </div>
             </li>
           ))

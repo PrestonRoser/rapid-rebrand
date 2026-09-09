@@ -1,28 +1,47 @@
 ---
+/**
+ * The supplied logo is a stacked lockup (RAPID over "energy solutions",
+ * ~1.77:1). Shrunk to nav height the sub-wordmark becomes illegible, so the
+ * header pairs the R mark with a typeset wordmark, and the full lockup is
+ * used where there's room (footer).
+ *
+ * `logo-dark.webp` is a recoloured variant — the original's "APID" is black
+ * and would disappear on this page.
+ */
 interface Props {
+  variant?: "mark" | "full";
   class?: string;
-  /** hide the sub-label (e.g. in a tight nav) */
-  compact?: boolean;
 }
-const { class: className = "", compact = false } = Astro.props;
+const { variant = "mark", class: className = "" } = Astro.props;
 ---
 
-<span class={`inline-flex items-center gap-2.5 ${className}`}>
-  <svg width="30" height="30" viewBox="0 0 30 30" role="img" aria-label="Rapid Energy Solutions">
-    <rect x="0.5" y="0.5" width="29" height="29" rx="2" fill="none" stroke="rgba(255,255,255,0.35)"
-    ></rect>
-    <path d="M17 5 8 17h5.5L12 25l11-13h-6l1-7Z" fill="var(--color-red-500)"></path>
-  </svg>
-  <span class="leading-none">
-    <span class="block text-sm font-bold tracking-tight text-white uppercase">
-      Rapid Energy Solutions
-    </span>
-    {
-      !compact && (
-        <span class="mt-1 block text-[0.6rem] font-semibold tracking-[0.18em] text-neutral-500 uppercase">
-          Electrical Contractor · Platteville, CO
+{
+  variant === "full" ? (
+    <img
+      src="/images/logo-dark.webp"
+      alt="Rapid Energy Solutions"
+      width="700"
+      height="395"
+      class={`h-auto w-44 ${className}`}
+    />
+  ) : (
+    <span class={`inline-flex items-center gap-3 ${className}`}>
+      <img
+        src="/images/mark.webp"
+        alt=""
+        aria-hidden="true"
+        width="256"
+        height="256"
+        class="h-9 w-9 shrink-0"
+      />
+      <span class="leading-none">
+        <span class="block text-[0.95rem] font-extrabold tracking-[0.02em] text-white uppercase">
+          Rapid
         </span>
-      )
-    }
-  </span>
-</span>
+        <span class="mt-[3px] block text-[0.6rem] font-bold tracking-[0.22em] text-red-400 uppercase">
+          Energy Solutions
+        </span>
+      </span>
+    </span>
+  )
+}

@@ -7,14 +7,20 @@ interface Props {
 const { eyebrow, title, lead } = Astro.props;
 ---
 
-<section class="border-b border-white/10 bg-black">
-  <div class="container-page py-20 sm:py-28">
+<section class="relative overflow-hidden border-b border-line bg-ink-900">
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background:radial-gradient(900px 460px at 12% -30%, rgba(215,4,17,0.20), transparent 62%)"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="container-page relative py-20 sm:py-28">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1
-      class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-white sm:text-6xl"
+      class="mt-5 max-w-4xl text-h2 leading-[1.03] font-bold tracking-tight text-balance text-white"
     >
       {title}
     </h1>
-    {lead && <p class="mt-5 max-w-2xl text-lg text-pretty text-neutral-400">{lead}</p>}
+    {lead && <p class="mt-6 max-w-2xl text-lead text-pretty text-neutral-300">{lead}</p>}
   </div>
 </section>

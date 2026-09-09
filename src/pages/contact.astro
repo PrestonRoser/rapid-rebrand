@@ -4,8 +4,8 @@ import PageHero from "../components/PageHero.astro";
 import { cityStateZip, site } from "../data/site";
 
 const fieldClass =
-  "mt-1.5 w-full rounded-sm border border-white/15 bg-black px-3.5 py-2.5 text-sm text-white placeholder:text-neutral-600 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500";
-const labelClass = "text-xs font-semibold tracking-[0.1em] text-neutral-400 uppercase";
+  "mt-2 w-full rounded-lg border border-line-strong bg-ink-800 px-4 py-3 text-[1.0625rem] text-white placeholder:text-neutral-600 transition-colors focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/35";
+const labelClass = "text-sm font-semibold text-neutral-300";
 
 const details = [
   ["Call", site.phone, site.phoneHref],
@@ -24,37 +24,37 @@ const details = [
   />
 
   <section class="section">
-    <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-16">
-      <div class="divide-y divide-white/10">
+    <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
+      <div class="divide-y divide-line">
         {
           details.map(([label, value, href]) => (
-            <div class="py-5 first:pt-0">
-              <p class={labelClass}>{label}</p>
+            <div class="py-6 first:pt-0">
+              <p class="text-xs font-bold tracking-[0.18em] text-neutral-500 uppercase">{label}</p>
               <a
                 href={href}
-                class="mt-1.5 block text-xl font-semibold text-white hover:text-red-500"
+                class="mt-2 block text-2xl font-bold break-words text-white transition-colors hover:text-red-400"
               >
                 {value}
               </a>
             </div>
           ))
         }
-        <div class="py-5">
-          <p class={labelClass}>Visit</p>
-          <address class="mt-1.5 text-neutral-300 not-italic">
+        <div class="py-6">
+          <p class="text-xs font-bold tracking-[0.18em] text-neutral-500 uppercase">Visit</p>
+          <address class="mt-2 text-lg text-neutral-200 not-italic">
             {site.address.street}<br />
             {cityStateZip}
           </address>
         </div>
-        <div class="py-5 last:pb-0">
-          <p class={labelClass}>Hours</p>
-          <p class="mt-1.5 text-neutral-300">{site.hours}</p>
+        <div class="py-6 last:pb-0">
+          <p class="text-xs font-bold tracking-[0.18em] text-neutral-500 uppercase">Hours</p>
+          <p class="mt-2 text-lg text-neutral-200">{site.hours}</p>
         </div>
       </div>
 
       {/* Wire `action` to a form handler (Formspree, Vercel/Netlify Forms, etc.) before launch. */}
-      <form method="post" action="#" class="border border-white/10 bg-neutral-900 p-6 sm:p-8">
-        <div class="grid gap-4 sm:grid-cols-2">
+      <form method="post" action="#" class="card p-7 sm:p-9">
+        <div class="grid gap-5 sm:grid-cols-2">
           <div>
             <label for="name" class={labelClass}>Name</label>
             <input
@@ -71,7 +71,7 @@ const details = [
             <input id="phone" name="phone" type="tel" autocomplete="tel" class={fieldClass} />
           </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-5">
           <label for="email" class={labelClass}>Email</label>
           <input
             id="email"
@@ -82,7 +82,7 @@ const details = [
             class={fieldClass}
           />
         </div>
-        <div class="mt-4">
+        <div class="mt-5">
           <label for="type" class={labelClass}>Project type</label>
           <select id="type" name="type" class={fieldClass}>
             <option>Residential</option>
@@ -92,14 +92,14 @@ const details = [
             <option>Something else</option>
           </select>
         </div>
-        <div class="mt-4">
+        <div class="mt-5">
           <label for="message" class={labelClass}>How can we help?</label>
-          <textarea id="message" name="message" rows="4" required class={fieldClass}></textarea>
+          <textarea id="message" name="message" rows="5" required class={fieldClass}></textarea>
         </div>
-        <button type="submit" class="btn mt-6 w-full sm:w-auto">Send message</button>
-        <p class="mt-3 text-xs text-neutral-500">
+        <button type="submit" class="btn btn-solid mt-7 w-full sm:w-auto">Send message</button>
+        <p class="mt-4 text-sm text-neutral-400">
           Prefer to talk it through? Call{" "}
-          <a href={site.phoneHref} class="link-red font-medium underline">{site.phone}</a>.
+          <a href={site.phoneHref} class="link-red font-semibold underline">{site.phone}</a>.
         </p>
       </form>
     </div>

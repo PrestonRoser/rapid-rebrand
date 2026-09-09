@@ -1,35 +1,64 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Brand tokens — sampled from rapidenergysolutions.net.
- * Palette: pure black, white, and the site's red accent.
- *   accent      hsl(356.3, 96.35%, 42.94%)  ->  #d70411
- *   darkAccent  hsl(358.0, 97.87%, 36.86%)  ->  #b00109  (hover / active)
- * The site is dark by design: near-black surfaces, white text, red on
- * interaction. Neutrals come from Tailwind's default `neutral` ramp.
+ * Brand tokens — red sampled from rapidenergysolutions.net.
+ *
+ * Surfaces are OFF-black, not pure black: a pure #000 page can't express
+ * elevation (every card looks pasted on) and causes halation on OLED.
+ * Material's dark-theme guidance puts the base near #121212 and lightens
+ * as surfaces rise; that's the ladder below.
+ *
+ * Two reds on purpose:
+ *   red-500 #d70411  brand fill — buttons, bars, keylines. White text on
+ *                    it is 5.4:1 (AA). As TEXT on a dark page it is only
+ *                    ~3.4:1, so it must not carry small copy.
+ *   red-400 #ff4d57  text tint — eyebrows, links, stars. 5.7:1 on the
+ *                    page surface, so it clears AA at small sizes.
  * ------------------------------------------------------------------ */
 @theme {
+  --color-red-400: #ff4d57;
   --color-red-500: #d70411;
   --color-red-600: #b00109;
+
+  /* Elevation ladder */
+  --color-ink-900: #0e0e11; /* deepest — contrast bands */
+  --color-ink-800: #131316; /* page base */
+  --color-ink-700: #17171b; /* panels */
+  --color-ink-600: #1c1c21; /* cards */
+  --color-ink-500: #24242b; /* card hover / inputs */
+
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 
-  --default-transition-duration: 150ms;
+  /* Type scale — fluid, and deliberately larger than the first pass.
+     Body sits at 17px, leads at 18–22px, per marketing-site convention
+     (Stripe 16–18, Apple 17–21). */
+  --text-hero: clamp(2.75rem, 6.4vw, 5rem);
+  --text-h2: clamp(2rem, 3.8vw, 3.25rem);
+  --text-h3: clamp(1.25rem, 1.6vw, 1.5rem);
+  --text-lead: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-body: 1.0625rem;
+
+  --default-transition-duration: 180ms;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    background-color: #0a0a0a;
+    background-color: var(--color-ink-800);
   }
 
   body {
-    background-color: #0a0a0a;
+    background-color: var(--color-ink-800);
     color: #ffffff;
     font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -39,8 +68,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-red-500);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-red-400);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -53,58 +83,67 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 }
 
 @layer components {
-  /* Section frame — one measure, one gutter, everywhere. */
   .container-page {
     width: 100%;
     max-width: 78rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
-
-  /* Section rhythm — one vertical step, everywhere. */
-  .section {
-    padding-block: 6rem;
-  }
   @media (min-width: 768px) {
-    .section {
-      padding-block: 8rem;
+    .container-page {
+      padding-inline: 2.5rem;
     }
   }
 
-  /* Uppercase, letter-spaced label above a heading (Stripe / Shamrock). */
-  .eyebrow {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-red-500);
+  .section {
+    padding-block: 5.5rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 7.5rem;
+    }
   }
 
-  /* Buttons: ghost by default, red fill on hover. */
+  /* Uppercase label above a heading. Uses red-400 so it clears AA at 13px. */
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-red-400);
+  }
+
+  /* ---- Buttons -------------------------------------------------- *
+   * Ghost at rest -> red fill on hover (brand spec). Larger tap
+   * target and a faint rest background so it reads as a control
+   * rather than a bare outline.
+   * -------------------------------------------------------------- */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    background-color: transparent;
+    border: 1px solid var(--color-line-strong);
+    background-color: rgba(255, 255, 255, 0.04);
     color: #ffffff;
-    padding: 0.9rem 1.6rem;
-    font-size: 0.8125rem;
+    padding: 1rem 1.75rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     line-height: 1;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 8px;
     transition:
       background-color var(--default-transition-duration),
       border-color var(--default-transition-duration),
-      color var(--default-transition-duration);
+      color var(--default-transition-duration),
+      transform var(--default-transition-duration);
   }
   .btn:hover {
     background-color: var(--color-red-500);
@@ -114,31 +153,118 @@
   .btn:active {
     background-color: var(--color-red-600);
     border-color: var(--color-red-600);
+    transform: translateY(1px);
   }
 
-  /* Solid variant — same hover, but filled at rest. Use sparingly. */
+  /* Filled at rest — reserve for the single highest-priority CTA per view. */
   .btn-solid {
     background-color: var(--color-red-500);
     border-color: var(--color-red-500);
+    box-shadow: 0 6px 20px -8px rgba(215, 4, 17, 0.85);
   }
   .btn-solid:hover {
     background-color: var(--color-red-600);
     border-color: var(--color-red-600);
   }
 
-  /* Inline text link — white, red on hover. */
+  .btn-sm {
+    padding: 0.7rem 1.15rem;
+    font-size: 0.8125rem;
+  }
+
   .link-red {
     color: #ffffff;
-    text-underline-offset: 3px;
+    text-underline-offset: 4px;
     transition: color var(--default-transition-duration);
   }
   .link-red:hover {
-    color: var(--color-red-500);
+    color: var(--color-red-400);
   }
 
-  /* Hairline rule used as a section divider / keyline. */
+  /* ---- Cards ---------------------------------------------------- *
+   * Raised surface + hairline + inset top highlight. The highlight is
+   * what stops a dark card from reading as a flat rectangle.
+   * -------------------------------------------------------------- */
+  .card {
+    background-color: var(--color-ink-600);
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 1px 2px rgba(0, 0, 0, 0.5);
+    transition:
+      background-color var(--default-transition-duration),
+      border-color var(--default-transition-duration),
+      transform var(--default-transition-duration);
+  }
+  .card-hover:hover {
+    background-color: var(--color-ink-500);
+    border-color: rgba(215, 4, 17, 0.55);
+    transform: translateY(-3px);
+  }
+
   .rule {
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Short red keyline used under headings and card titles. */
+  .keyline {
+    display: block;
+    height: 3px;
+    width: 2.75rem;
+    border-radius: 2px;
+    background-color: var(--color-red-500);
+  }
+
+  /* ---- Scroll-driven reveal ------------------------------------- *
+   * Progressive enhancement: sections ease in as they enter the
+   * viewport, using CSS scroll-timelines. No JS, no library, and it
+   * simply doesn't apply where unsupported or where the visitor asks
+   * for reduced motion.
+   * -------------------------------------------------------------- */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 5% cover 26%;
+      }
+    }
+  }
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ---- Review rail ---------------------------------------------- */
+  .rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(19rem, 22rem);
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    scrollbar-width: none;
+    padding-block: 0.5rem;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+  }
+  @media (min-width: 768px) {
+    .rail {
+      grid-auto-columns: minmax(22rem, 24rem);
+      scroll-padding-inline: 2.5rem;
+    }
   }
 }
