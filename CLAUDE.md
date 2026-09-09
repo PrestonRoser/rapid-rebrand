@@ -42,7 +42,7 @@ site that looks like it came out of a top-tier company's design team on day one.
   "Meticulous work for impeccable results", "Protecting Lives and Preserving Values",
   "creating a brighter future with you"; values — accountability, responsibility, integrity
 - Brand voice: trades-professional, plain-spoken, safety-forward, community-minded — confident, not slick
-- Palette chosen for this build: brand navy + amber energy accent (tokens in `global.css`)
+- Palette sampled from the live site: pure black, white, red `#d70411` (see Visual Language)
 
 **Copy discipline:** company info and brand phrases above are verbatim from the live site (and
 noted as such in `src/data/site.ts`). Service sub-bullets, section intros, and process copy are
@@ -57,71 +57,110 @@ Keep it that way so a copy or color change is one edit, not a find-and-replace.
 
 ## Tech Stack
 
-| Layer         | Technology                                                                          |
-| ------------- | ----------------------------------------------------------------------------------- |
-| Framework     | Astro 7 (static output)                                                             |
-| Styling       | Tailwind CSS v4 (`@tailwindcss/vite`), single `src/styles/global.css` entry         |
-| Language      | TypeScript (`astro/tsconfigs/strict`)                                               |
-| Pages         | `src/pages/*.astro` — file-based routing                                            |
-| Components    | `src/components/*.astro` — single-responsibility                                    |
-| Layouts       | `src/layouts/Layout.astro` — `<head>`, imports `global.css`, `<slot />`             |
-| Design tokens | CSS custom properties in `global.css` `@theme` block (colors, fonts, spacing scale) |
-| Assets        | `public/` — served at root. Prefer `.webp`/`.svg`, set explicit width/height        |
-| Hosting       | Vercel — auto-deploy `main` → production, every other branch → preview URL          |
+| Layer         | Technology                                                                                                                                 |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Framework     | Astro 7 (static output)                                                                                                                    |
+| Styling       | Tailwind CSS v4 (`@tailwindcss/vite`), single `src/styles/global.css` entry                                                                |
+| Language      | TypeScript (`astro/tsconfigs/strict`)                                                                                                      |
+| Pages         | `src/pages/*.astro` — file-based routing                                                                                                   |
+| Components    | `src/components/*.astro` — single-responsibility                                                                                           |
+| Layouts       | `src/layouts/Layout.astro` — `<head>`, imports `global.css`, `<slot />`                                                                    |
+| Design tokens | `global.css` — `@theme` (red accent, font) + `@layer components` (`.btn`, `.eyebrow`, `.section`, `.container-page`, `.rule`, `.link-red`) |
+| Assets        | `public/` — served at root. Prefer `.webp`/`.svg`, set explicit width/height                                                               |
+| Hosting       | Vercel — auto-deploy `main` → production, every other branch → preview URL                                                                 |
 
 Dev server: `npm run dev` → http://localhost:4321. Full workflow in `run.md`.
 
 ---
 
-## Design System — "Modern Company Website" Defaults
+## Visual Language
 
-Model the look on the current generation of well-regarded company/product sites
-(Linear, Stripe, Vercel, Framer, Notion, Superhuman). Concretely:
+The look is **sampled, not invented**: the palette comes straight from the client's live site,
+and the layout patterns come from real company websites. Don't reach for novel or decorative
+treatments — reach for the reference sites and match what they do.
 
-### Layout & Rhythm
+### Palette (from rapidenergysolutions.net — do not change without asking)
 
-- Content max-width ~1120–1280px, centered, generous gutters (`px-6` mobile, more on desktop).
-- Vertical rhythm is consistent: every top-level section uses the same padding scale (e.g. `py-24 sm:py-32`).
-- Whitespace is a feature, not a gap to fill. When unsure, add space.
-- Page skeleton: sticky minimal nav → large hero → social-proof / logo row → feature blocks
-  (alternating or grid) → secondary content → CTA band → minimal footer.
+| Token           | Value                         | Use                                             |
+| --------------- | ----------------------------- | ----------------------------------------------- |
+| Page background | `#0a0a0a`                     | every page; sections alternate with pure `#000` |
+| Raised surface  | `neutral-900` / `#171717`     | cards, panels, form fields                      |
+| Hairline        | `rgba(255,255,255,0.12)`      | borders, rules, dividers                        |
+| Text            | `#ffffff`                     | headings and body                               |
+| Muted text      | `neutral-400`                 | secondary copy, labels, footer                  |
+| **Red accent**  | `#d70411` (`--color-red-500`) | eyebrows, hover fills, keylines, links on hover |
+| Red active      | `#b00109` (`--color-red-600`) | `:active` / pressed                             |
+
+Dark by design — there is no light mode. Red is an **interaction and emphasis** color, not a fill
+color: most of the page is black and white, and red appears on hover, on the eyebrow labels, and
+as thin keylines. Never large flat red areas.
+
+### Buttons (fixed pattern)
+
+- **Default = ghost:** transparent background, white text, `rgba(255,255,255,0.35)` border,
+  uppercase, letter-spaced. This is `.btn` in `global.css`.
+- **Hover = red fill:** background and border become `--color-red-500`, text stays white.
+  `:active` drops to `--color-red-600`.
+- `.btn-solid` (filled red at rest, same hover) exists for rare high-emphasis spots — use it at
+  most once per page, if at all.
+- Text links use `.link-red`: white, red on hover.
+
+### Layout patterns — borrow these directly
+
+**Shamrock Foods** (the closest analog — a family-owned regional operator):
+
+- Full-width hero: headline + a short founding/mission paragraph + a one-line tagline.
+- "Company overview" block: 2–4 sentences of plain context right under the hero.
+- "Explore our companies" → for us, an **Explore our services** card grid.
+- A horizontal **row of trust marks** (they use subsidiary logos; we use plain-text credentials —
+  locally owned, safety-first, counties served).
+- A prominent **Careers CTA block** ("JOIN THE SHAMROCK FAMILY" / "APPLY NOW") — replicate as
+  "JOIN THE RAPID TEAM".
+- **Two-column showcase blocks** ("MEET SHAMROCK FOODS" + "LEARN MORE" button), stacked and
+  alternating down the page.
+- Footer: address and phone up top, then columns of resource links.
+
+**Stripe** — structure and restraint:
+
+- Uppercase, letter-spaced **eyebrow labels** over every section heading (`.eyebrow`).
+- Precise multi-column grids; content sits on a shared 12-col rhythm, not eyeballed.
+- Whitespace is generous and consistent (`.section` = one vertical step, no exceptions).
+- Large, well-organized footer with several link columns.
+
+**Framer** — the display type and stacking:
+
+- Big, bold hero headline (`text-5xl` → `text-7xl`, `font-semibold`, `tracking-tight`).
+- The page is a **stack of full-width feature sections**, each with its own eyebrow + heading +
+  supporting copy, separated by hairline rules or a background flip (`#0a0a0a` ↔ `#000`).
 
 ### Typography
 
-- One clean sans for everything (system stack or Inter/Geist-style geometric sans). Optionally one
-  display face for h1/h2 only.
-- Big, confident headings with **tight tracking** (`tracking-tight`) and `text-balance`.
-  Body copy at 16–18px, `leading-relaxed`, `text-pretty`, measure capped (~65ch).
-- Type scale is limited and deliberate — roughly h1 / h2 / h3 / body / small. Don't invent sizes per section.
-
-### Color
-
-- Near-neutral base (off-white background, near-black text), high contrast.
-- **One** brand accent used sparingly — primary CTA, links, key highlights. Not every heading.
-- Subtle borders (`border-neutral-200`), soft shadows only where elevation is real
-  (`shadow-sm`/`shadow-md`), rounded corners (`rounded-lg`/`rounded-xl`, pills for tags).
-- All accent/foreground pairings must clear WCAG AA (4.5:1 body, 3:1 large text).
-- Support dark mode when it's cheap to do — drive it from tokens, not per-component overrides.
+- One sans (system stack). Headings `font-semibold tracking-tight`; hero may go `font-bold`.
+- Scale is small and fixed: hero `text-5xl sm:text-7xl` · section h2 `text-3xl sm:text-5xl` ·
+  card h3 `text-lg sm:text-xl` · body `text-base sm:text-lg` · eyebrow/label `text-xs`.
+- Body copy `text-neutral-300`/`text-neutral-400`, `leading-relaxed`, measure ~62ch.
+- `text-balance` on headings, `text-pretty` on paragraphs.
 
 ### Components
 
-- Buttons: solid primary (accent), quiet secondary (ghost/outline), consistent height & radius,
-  visible `:focus-visible` ring, no underline on hover for button-styled links.
-- Cards: consistent padding, one border style, hover state that's subtle (slight lift or border shift).
-- Nav: logo left, links center/right, one primary CTA. Collapses to a clean mobile menu.
-- Footer: compact — logo, 2–4 link columns, legal line. No mega-footer unless asked.
+- **Cards:** `#171717` surface, `border-white/10`, `rounded-xl`, generous padding. Hover = border
+  goes red (`hover:border-red-500`), nothing moves.
+- **Nav:** black, sticky, hairline bottom border. Logo left, links right with red hover, one ghost
+  `.btn`. Collapses to a full-width mobile panel.
+- **Rules / keylines:** `.rule` hairline, or a 2–3px red segment as a section accent.
+- Radius: `2px` on buttons, `rounded-xl` on cards/panels. Nothing more rounded than that.
 
 ### Motion
 
-- Subtle only: 150–250ms ease transitions on hover/focus, optional fade/slide-in on scroll.
-- Always honor `prefers-reduced-motion: reduce` — no exceptions.
-- No autoplaying carousels, no parallax that hijacks scroll.
+- 150ms color transitions on hover/focus only. No transforms, no lifts, no scroll-jacking,
+  no gradient glows or blurred blobs. Always honor `prefers-reduced-motion: reduce`.
 
 ### Imagery
 
-- Real product photography or clean vector/illustration over stock clichés.
-- Consistent treatment (same corner radius, same aspect ratios per context).
-- Every `<img>` has `alt`; decorative images get `alt=""`. Set `width`/`height` to prevent layout shift.
+- Real job-site / crew / equipment photography when available — full-bleed or in a `rounded-xl`
+  frame with a `border-white/10`. Until then, carry sections with type, hairlines, and red keylines
+  rather than stock art or generated decoration.
+- Every `<img>` has `alt` (decorative → `alt=""`); set `width`/`height` to prevent layout shift.
 
 ---
 
@@ -161,7 +200,7 @@ Model the look on the current generation of well-regarded company/product sites
 
 - New sections must look like they belong to the same design system as existing ones.
 - Defer to established tokens and patterns unless Preston explicitly asks to deviate.
-- Copy matches the subject's brand voice (for HANDS: evidence-backed, professional, approachable).
+- Copy matches Rapid Energy Solutions' voice: trades-professional, plain-spoken, safety-forward.
 
 ---
 

@@ -3,6 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import CTASection from "../components/CTASection.astro";
 import { fullAddress, site, values } from "../data/site";
+
+const glance = [
+  ["Headquarters", fullAddress],
+  ["Hours", site.hours],
+  ["Service area", site.serviceAreas.join(", ")],
+  ["Work", "Residential · Commercial · Industrial"],
+];
 ---
 
 <Layout
@@ -16,70 +23,69 @@ import { fullAddress, site, values } from "../data/site";
   />
 
   <section class="section">
-    <div class="container-page grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-start">
-      <div class="space-y-5 text-pretty text-brand-700">
-        <h2 class="text-2xl font-semibold tracking-tight text-brand-950">
+    <div class="container-page grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-16">
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h2 class="mt-4 text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">
           Meticulous work for impeccable results
         </h2>
-        <p>
-          Rising demand for quality electricians is real — and so is the gap in service that comes
-          with it. We started Rapid Energy Solutions to close that gap: to give homeowners,
-          businesses, and industrial clients a contractor who shows up, communicates clearly, and
-          does the work right.
-        </p>
-        <p>
-          Whether it's a small project, a large remodel, a brand-new build, or a commercial job, we
-          bring the same meticulous attention to detail and dedication to customer satisfaction. We
-          work closely with each client to tailor solutions that align with their individual needs,
-          budgets, and desired outcomes.
-        </p>
-        <p>
-          Our team provides technical expertise, project management, and ongoing support — because
-          the relationship shouldn't end when the final inspection is signed.
-        </p>
+        <div class="mt-6 space-y-5 text-pretty text-neutral-300">
+          <p>
+            Rising demand for quality electricians is real — and so is the gap in service that comes
+            with it. We started Rapid Energy Solutions to close that gap: to give homeowners,
+            businesses, and industrial clients a contractor who shows up, communicates clearly, and
+            does the work right.
+          </p>
+          <p>
+            Whether it's a small project, a large remodel, a brand-new build, or a commercial job,
+            we bring the same meticulous attention to detail and dedication to customer
+            satisfaction. We work closely with each client to tailor solutions that align with their
+            individual needs, budgets, and desired outcomes.
+          </p>
+          <p>
+            Our team provides technical expertise, project management, and ongoing support — because
+            the relationship shouldn't end when the final inspection is signed.
+          </p>
+        </div>
       </div>
 
-      <aside class="rounded-xl border border-brand-100 bg-brand-50 p-6">
-        <h2 class="text-xs font-semibold tracking-[0.15em] text-brand-500 uppercase">
+      <aside class="border border-white/10 bg-neutral-900 p-8">
+        <p class="text-xs font-semibold tracking-[0.15em] text-neutral-500 uppercase">
           At a glance
-        </h2>
-        <dl class="mt-4 space-y-3 text-sm">
-          <div>
-            <dt class="text-brand-500">Headquarters</dt>
-            <dd class="font-medium text-brand-950">{fullAddress}</dd>
-          </div>
-          <div>
-            <dt class="text-brand-500">Hours</dt>
-            <dd class="font-medium text-brand-950">{site.hours}</dd>
-          </div>
-          <div>
-            <dt class="text-brand-500">Service area</dt>
-            <dd class="font-medium text-brand-950">{site.serviceAreas.join(", ")}</dd>
-          </div>
-          <div>
-            <dt class="text-brand-500">Work</dt>
-            <dd class="font-medium text-brand-950">Residential · Commercial · Industrial</dd>
-          </div>
+        </p>
+        <dl class="mt-5 divide-y divide-white/10">
+          {
+            glance.map(([label, value]) => (
+              <div class="py-4 first:pt-0 last:pb-0">
+                <dt class="text-xs tracking-wide text-neutral-500 uppercase">{label}</dt>
+                <dd class="mt-1 text-sm font-medium text-white">{value}</dd>
+              </div>
+            ))
+          }
         </dl>
       </aside>
     </div>
   </section>
 
-  <section class="section bg-brand-950 text-white">
+  <section class="section border-t border-white/10 bg-black">
     <div class="container-page">
-      <h2 class="max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+      <p class="eyebrow">Safety</p>
+      <h2
+        class="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-balance text-white sm:text-5xl"
+      >
         Protecting lives and preserving values
       </h2>
-      <p class="mt-4 max-w-2xl text-pretty text-brand-300">
+      <p class="mt-5 max-w-2xl text-pretty text-neutral-400">
         Safety is central to our operations. We invest in safety trainings and run regular safety
         inspections to protect our employees, our clients, and our communities.
       </p>
-      <dl class="mt-12 grid gap-6 md:grid-cols-3">
+      <dl class="mt-14 grid gap-px border border-white/10 bg-white/10 md:grid-cols-3">
         {
           values.map((v) => (
-            <div class="rounded-xl border border-white/10 p-5">
-              <dt class="font-semibold text-white">{v.title}</dt>
-              <dd class="mt-1 text-sm leading-relaxed text-brand-300">{v.body}</dd>
+            <div class="bg-neutral-900 p-8">
+              <dt class="text-lg font-semibold text-white">{v.title}</dt>
+              <div class="mt-3 h-px w-10 bg-red-500" />
+              <dd class="mt-4 text-sm leading-relaxed text-neutral-400">{v.body}</dd>
             </div>
           ))
         }

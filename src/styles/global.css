@@ -1,52 +1,46 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Design tokens — change these to rebrand the whole site.
+ * Brand tokens — sampled from rapidenergysolutions.net.
+ * Palette: pure black, white, and the site's red accent.
+ *   accent      hsl(356.3, 96.35%, 42.94%)  ->  #d70411
+ *   darkAccent  hsl(358.0, 97.87%, 36.86%)  ->  #b00109  (hover / active)
+ * The site is dark by design: near-black surfaces, white text, red on
+ * interaction. Neutrals come from Tailwind's default `neutral` ramp.
  * ------------------------------------------------------------------ */
 @theme {
-  /* Brand navy */
-  --color-brand-50: #eef4fb;
-  --color-brand-100: #d9e6f4;
-  --color-brand-200: #b6cde8;
-  --color-brand-300: #86acd6;
-  --color-brand-400: #5486bd;
-  --color-brand-500: #3468a4;
-  --color-brand-600: #275488;
-  --color-brand-700: #20446e;
-  --color-brand-800: #17314f;
-  --color-brand-900: #10223a;
-  --color-brand-950: #0a1727;
-
-  /* Energy accent (amber) */
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
+  --color-red-500: #d70411;
+  --color-red-600: #b00109;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 
-  --default-transition-duration: 180ms;
+  --default-transition-duration: 150ms;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    background-color: #0a0a0a;
   }
 
   body {
-    background-color: var(--color-white);
-    color: var(--color-brand-950);
+    background-color: #0a0a0a;
+    color: #ffffff;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
 
+  ::selection {
+    background-color: var(--color-red-500);
+    color: #ffffff;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-accent-500);
+    outline: 2px solid var(--color-red-500);
     outline-offset: 2px;
-    border-radius: 2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -64,68 +58,87 @@
 }
 
 @layer components {
-  /* Consistent horizontal frame for every section */
+  /* Section frame — one measure, one gutter, everywhere. */
   .container-page {
     width: 100%;
-    max-width: 76rem;
+    max-width: 78rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
 
-  /* Consistent vertical rhythm */
+  /* Section rhythm — one vertical step, everywhere. */
   .section {
-    padding-block: 5rem;
+    padding-block: 6rem;
   }
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .section {
-      padding-block: 7rem;
+      padding-block: 8rem;
     }
   }
 
+  /* Uppercase, letter-spaced label above a heading (Stripe / Shamrock). */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-red-500);
+  }
+
+  /* Buttons: ghost by default, red fill on hover. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 0.625rem;
-    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0.9rem 1.6rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    font-size: 0.9375rem;
     line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
     transition:
       background-color var(--default-transition-duration),
-      color var(--default-transition-duration),
       border-color var(--default-transition-duration),
-      transform var(--default-transition-duration);
+      color var(--default-transition-duration);
+  }
+  .btn:hover {
+    background-color: var(--color-red-500);
+    border-color: var(--color-red-500);
+    color: #ffffff;
   }
   .btn:active {
-    transform: translateY(1px);
+    background-color: var(--color-red-600);
+    border-color: var(--color-red-600);
   }
 
-  .btn-primary {
-    background-color: var(--color-accent-500);
-    color: var(--color-brand-950);
+  /* Solid variant — same hover, but filled at rest. Use sparingly. */
+  .btn-solid {
+    background-color: var(--color-red-500);
+    border-color: var(--color-red-500);
   }
-  .btn-primary:hover {
-    background-color: var(--color-accent-400);
-  }
-
-  .btn-ghost {
-    background-color: transparent;
-    color: var(--color-brand-950);
-    border: 1px solid var(--color-brand-200);
-  }
-  .btn-ghost:hover {
-    border-color: var(--color-brand-400);
-    background-color: var(--color-brand-50);
+  .btn-solid:hover {
+    background-color: var(--color-red-600);
+    border-color: var(--color-red-600);
   }
 
-  .btn-on-dark {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+  /* Inline text link — white, red on hover. */
+  .link-red {
+    color: #ffffff;
+    text-underline-offset: 3px;
+    transition: color var(--default-transition-duration);
   }
-  .btn-on-dark:hover {
-    background-color: rgba(255, 255, 255, 0.16);
+  .link-red:hover {
+    color: var(--color-red-500);
+  }
+
+  /* Hairline rule used as a section divider / keyline. */
+  .rule {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 }
