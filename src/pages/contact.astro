@@ -22,7 +22,8 @@ const contactMethods = [
 
   <section class="section">
     <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
-      <div class="divide-y divide-line">
+      {/* min-w-0: the email at text-2xl floors this column past a 360px viewport without it. */}
+      <div class="min-w-0 divide-y divide-line">
         {
           contactMethods.map(([label, value, href]) => (
             <div class="py-6 first:pt-0">
