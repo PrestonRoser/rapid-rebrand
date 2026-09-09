@@ -239,13 +239,23 @@
     }
   }
 
-  /* Horizontal review carousel. Snaps card to card, scrollbar hidden. */
+  /*
+   * Horizontal review carousel. Snaps card to card, scrollbar hidden.
+   *
+   * `contain: paint` is load-bearing, not an optimisation. Without it Chrome
+   * reports this grid's implicit columns as overflow on the root scroller, so
+   * the whole page picks up around 1100px of phantom horizontal scroll at every
+   * viewport width even though nothing visibly bleeds. Containing the paint
+   * gives the rail its own containing block and keeps the overflow where it
+   * belongs; the rail still scrolls exactly as before.
+   */
   .rail {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: minmax(19rem, 22rem);
     gap: 1.25rem;
     overflow-x: auto;
+    contain: paint;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 1.5rem;
     scrollbar-width: none;

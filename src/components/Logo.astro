@@ -1,46 +1,24 @@
 ---
 /**
- * The supplied logo is a stacked lockup, roughly 1.77:1. At nav height the
- * "energy solutions" line stops being readable, so the header shows the R
- * mark beside a typeset wordmark and the footer shows the full lockup.
+ * The brand lockup, recoloured for a dark background: the original's "APID" is
+ * black and would disappear against this page.
  *
- * Both files are recoloured versions of the original, whose "APID" is black
- * and would disappear against this background.
+ * Header and footer render the same file at different sizes. The header is
+ * height-constrained and the footer width-constrained, so the caller supplies
+ * both dimensions rather than fighting a default here. The art is 700x395, and
+ * the "energy solutions" line is the first thing to give out as it shrinks,
+ * which is what sets the floor on the header size.
  */
 interface Props {
-  variant?: "mark" | "full";
   class?: string;
 }
-const { variant = "mark", class: className = "" } = Astro.props;
+const { class: className = "" } = Astro.props;
 ---
 
-{
-  variant === "full" ? (
-    <img
-      src="/images/logo-dark.webp"
-      alt="Rapid Energy Solutions"
-      width="700"
-      height="395"
-      class={`h-auto w-44 ${className}`}
-    />
-  ) : (
-    <span class={`inline-flex items-center gap-3 ${className}`}>
-      <img
-        src="/images/mark.webp"
-        alt=""
-        aria-hidden="true"
-        width="218"
-        height="320"
-        class="h-11 w-auto shrink-0"
-      />
-      <span class="leading-none">
-        <span class="block text-[0.95rem] font-extrabold tracking-[0.02em] text-white uppercase">
-          Rapid
-        </span>
-        <span class="mt-[3px] block text-[0.6rem] font-bold tracking-[0.22em] text-red-400 uppercase">
-          Energy Solutions
-        </span>
-      </span>
-    </span>
-  )
-}
+<img
+  src="/images/logo-dark.webp"
+  alt="Rapid Energy Solutions"
+  width="700"
+  height="395"
+  class={className}
+/>
