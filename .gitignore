@@ -31,3 +31,7 @@ logs
 *.tsbuildinfo
 .eslintcache
 coverage/
+
+# docs/ holds symlinks into the Obsidian vault (absolute paths, machine-specific).
+# Canonical copies live at Zettlekasten/LLM ML/Claude/{Projects,Sessions}/ in the vault.
+docs/
