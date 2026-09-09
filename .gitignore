@@ -28,6 +28,7 @@ logs
 # tooling caches
 .vercel
 .netlify
+.wrangler
 *.tsbuildinfo
 .eslintcache
 coverage/

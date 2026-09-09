@@ -2,7 +2,7 @@
 
 Marketing website for Rapid Energy Solutions LLC, an electrical contractor in
 Platteville, Colorado. Static site, built with Astro and Tailwind, deployed on
-Vercel.
+Cloudflare Pages.
 
 ## Requirements
 
@@ -19,14 +19,14 @@ The dev server runs at http://localhost:4321 and reloads on save.
 
 ## Scripts
 
-| Command                | Description                                |
-| ---------------------- | ------------------------------------------ |
-| `npm run dev`          | Start the dev server                       |
-| `npm run build`        | Build to `dist/`. This is what Vercel runs |
-| `npm run preview`      | Serve the built output locally             |
-| `npm run check`        | Type and content check via `astro check`   |
-| `npm run format`       | Format with Prettier                       |
-| `npm run format:check` | Verify formatting. CI runs this            |
+| Command                | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `npm run dev`          | Start the dev server                         |
+| `npm run build`        | Build to `dist/`. This is what the host runs |
+| `npm run preview`      | Serve the built output locally               |
+| `npm run check`        | Type and content check via `astro check`     |
+| `npm run format`       | Format with Prettier                         |
+| `npm run format:check` | Verify formatting. CI runs this              |
 
 ## Layout
 
