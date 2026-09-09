@@ -1,8 +1,8 @@
 # Rapid Energy Solutions
 
 Marketing website for Rapid Energy Solutions LLC, an electrical contractor in
-Platteville, Colorado. Static site, built with Astro and Tailwind, deployed on
-Cloudflare Pages.
+Platteville, Colorado. Static site, built with Astro and Tailwind, deployed to
+Cloudflare Workers.
 
 ## Requirements
 
@@ -39,6 +39,7 @@ src/
   pages/              One file per route
   styles/global.css   Design tokens and shared component classes
 public/               Served at the site root
+wrangler.jsonc        Cloudflare deploy config: assets-only Worker over dist/
 ```
 
 Two files carry most of the decisions:

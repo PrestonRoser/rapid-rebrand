@@ -1,0 +1,16 @@
+{
+  // Cloudflare deploy config. `npx wrangler deploy` reads this file, so the
+  // dashboard needs no build settings beyond the build command.
+  //
+  // There is no "main" entry: this is an assets-only Worker. Astro emits a
+  // fully static site, so Cloudflare serves files from ./dist directly and no
+  // Worker script runs on request.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rapid-rebrand",
+  "compatibility_date": "2026-09-09",
+  "assets": {
+    "directory": "./dist",
+    // Serve dist/404.html for unknown paths instead of a bare Cloudflare error.
+    "not_found_handling": "404-page",
+  },
+}

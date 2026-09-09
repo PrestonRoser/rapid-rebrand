@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { nav, site } from "../data/site";
+---
+
+<Layout
+  title="Page not found"
+  description="That page could not be found. Call Rapid Energy Solutions at 970-535-2381 or head back to the home page."
+>
+  <section class="relative overflow-hidden bg-ink-900">
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background:radial-gradient(900px 460px at 12% -30%, rgba(215,4,17,0.20), transparent 62%)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="container-page relative py-28 sm:py-36">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="mt-5 max-w-3xl text-h2 leading-[1.03] font-bold tracking-tight text-white">
+        We couldn't find that page
+      </h1>
+      <p class="mt-6 max-w-xl text-lead text-pretty text-neutral-300">
+        The link may be out of date, or the page may have moved. Try one of these, or give us a call
+        and we'll point you the right way.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/" class="btn btn-solid">Back to home</a>
+        <a href={site.phoneHref} class="btn">Call {site.phone}</a>
+      </div>
+
+      <nav class="mt-14 border-t border-line pt-8" aria-label="Site sections">
+        <p class="text-xs font-bold tracking-[0.18em] text-neutral-500 uppercase">Go to</p>
+        <ul class="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-lg font-semibold text-white transition-colors hover:text-red-400"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+</Layout>
