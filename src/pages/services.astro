@@ -1,0 +1,66 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import CTASection from "../components/CTASection.astro";
+import { services } from "../data/site";
+---
+
+<Layout
+  title="Services"
+  description="Residential, commercial, industrial electrical, plus hauling and dirt work — from small projects to large remodels to brand-new builds."
+>
+  <PageHero
+    eyebrow="Our services"
+    title="Electrical work for every scope"
+    lead="Small projects, large remodels, brand-new builds, and commercial work — handled with meticulous attention to detail and dedication to customer satisfaction."
+  />
+
+  <section class="section">
+    <div class="container-page grid gap-5 sm:grid-cols-2">
+      {services.map((service) => <ServiceCard service={service} detailed />)}
+    </div>
+  </section>
+
+  <section class="section bg-brand-50">
+    <div class="container-page max-w-3xl">
+      <h2 class="text-3xl font-semibold tracking-tight text-balance text-brand-950">
+        How a project runs
+      </h2>
+      <ol class="mt-8 space-y-6">
+        {
+          [
+            [
+              "Scope & estimate",
+              "We walk the job, talk through your goals and budget, and put together a clear estimate — no surprises later.",
+            ],
+            [
+              "Schedule & permitting",
+              "We coordinate permits, inspections, and a schedule that works around your build or your business.",
+            ],
+            [
+              "Install & inspect",
+              "Our crew does the work to code, with safety inspections built into the process from start to finish.",
+            ],
+            [
+              "Walkthrough & support",
+              "We walk the finished work with you and stay available for questions and service long after.",
+            ],
+          ].map(([title, body], i) => (
+            <li class="flex gap-4">
+              <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-950 text-sm font-semibold text-white">
+                {i + 1}
+              </span>
+              <div>
+                <h3 class="font-semibold text-brand-950">{title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-brand-600">{body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <CTASection heading="Have a project in mind?" />
+</Layout>

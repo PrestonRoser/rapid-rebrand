@@ -1,12 +1,43 @@
 ---
 import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
 
 interface Props {
   title?: string;
   description?: string;
+  /** set true only on the home page to emit LocalBusiness structured data */
+  business?: boolean;
 }
 
-const { title = "Rapid Rebrand", description = "A fast, modern marketing site." } = Astro.props;
+const {
+  title,
+  description = "Residential, commercial, and industrial electrical contracting in Platteville, Colorado. Locally owned, safety-first, serving Weld, Larimer, Adams, and Boulder counties.",
+  business = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Electrician",
+  name: site.legalName,
+  telephone: site.phone,
+  email: site.email,
+  url: site.url,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    postalCode: site.address.zip,
+    addressCountry: "US",
+  },
+  areaServed: site.serviceAreas,
+  openingHours: "Mo-Fr 06:30-17:00",
+};
 ---
 
 <!doctype html>
@@ -17,10 +48,31 @@ const { title = "Rapid Rebrand", description = "A fast, modern marketing site." 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {business && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
-  <body class="min-h-screen bg-white text-neutral-900 antialiased">
-    <slot />
+  <body class="flex min-h-screen flex-col bg-white text-brand-950">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-brand-950 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

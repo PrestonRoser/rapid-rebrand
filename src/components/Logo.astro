@@ -1,0 +1,35 @@
+---
+interface Props {
+  /** render light wordmark for dark backgrounds */
+  variant?: "dark" | "light";
+  class?: string;
+}
+const { variant = "dark", class: className = "" } = Astro.props;
+const wordColor = variant === "light" ? "#ffffff" : "var(--color-brand-950)";
+const subColor = variant === "light" ? "rgba(255,255,255,.7)" : "var(--color-brand-500)";
+---
+
+<span class={`inline-flex items-center gap-2.5 ${className}`}>
+  <svg
+    width="34"
+    height="34"
+    viewBox="0 0 34 34"
+    role="img"
+    aria-label={variant === "light" ? "" : "Rapid Energy Solutions logo"}
+    aria-hidden={variant === "light" ? "true" : undefined}
+  >
+    <rect width="34" height="34" rx="9" fill="var(--color-brand-900)"></rect>
+    <path d="M19.5 6 9 19h6.2l-1.7 9L25 15h-6.2l0.7-9Z" fill="var(--color-accent-500)"></path>
+  </svg>
+  <span class="leading-tight">
+    <span class="block text-[0.95rem] font-bold tracking-tight" style={`color:${wordColor}`}>
+      Rapid Energy Solutions
+    </span>
+    <span
+      class="block text-[0.6rem] font-semibold tracking-[0.18em] uppercase"
+      style={`color:${subColor}`}
+    >
+      Platteville, Colorado
+    </span>
+  </span>
+</span>

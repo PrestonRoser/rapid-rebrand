@@ -1,7 +1,11 @@
 # rapid-rebrand
 
-A fast, standalone marketing/brand site built from scratch with **Astro + Tailwind CSS**.
-Static output, deployed on Vercel.
+Marketing website for **Rapid Energy Solutions LLC** — an electrical contractor in Platteville,
+Colorado. A clean-room enhancement of the company's existing site, built from scratch with
+**Astro + Tailwind CSS**. Static output, deployed on Vercel.
+
+Company info and navigation live in [`src/data/site.ts`](./src/data/site.ts); brand colors and
+type live in [`src/styles/global.css`](./src/styles/global.css) (`@theme` block).
 
 ## Stack
 

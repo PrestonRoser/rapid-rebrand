@@ -1,0 +1,73 @@
+---
+import Logo from "./Logo.astro";
+import { cityStateZip, nav, services, site } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-brand-950 text-brand-100">
+  <div class="container-page grid gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <div>
+      <Logo variant="light" />
+      <p class="mt-4 max-w-xs text-sm text-brand-300">
+        {site.tagline}. Locally owned and operated in Platteville, Colorado.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.15em] text-brand-400 uppercase">Company</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="text-brand-200 hover:text-white">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.15em] text-brand-400 uppercase">Services</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        {
+          services.map((s) => (
+            <li>
+              <a href={`/services#${s.slug}`} class="text-brand-200 hover:text-white">
+                {s.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-[0.15em] text-brand-400 uppercase">Contact</h2>
+      <address class="mt-4 space-y-2 text-sm text-brand-200 not-italic">
+        <p>
+          {site.address.street}<br />
+          {cityStateZip}
+        </p>
+        <p>
+          <a href={site.phoneHref} class="hover:text-white">{site.phone}</a>
+        </p>
+        <p>
+          <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+        </p>
+        <p class="text-brand-400">{site.hours}</p>
+      </address>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div
+      class="container-page flex flex-col gap-2 py-6 text-xs text-brand-400 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+      <p>Serving {site.serviceAreas.join(" · ")}</p>
+    </div>
+  </div>
+</footer>

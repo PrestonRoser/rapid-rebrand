@@ -27,23 +27,31 @@ polished, production-quality work together.
 
 ## Project Context
 
-**What this repo is:** A fast, standalone marketing/brand site built from scratch — a clean-room
-rebrand exercise. No legacy code, no design debt. The goal is a site that looks like it came out
-of a top-tier company's design team on day one.
+**What this repo is:** A fast, standalone marketing site built from scratch — a clean-room
+enhancement of an existing small-business site. No legacy code, no design debt. The goal is a
+site that looks like it came out of a top-tier company's design team on day one.
 
-**Likely subject:** HANDS Learning (Preston's company) unless he says otherwise.
+**Subject:** Rapid Energy Solutions LLC — an electrical contractor.
 
-- Company: HANDS Learning — education brand, tactile STEM kits for K–12 classrooms
-- Co-founders: Preston Roser (technical) + Esteban Gardea (product)
-- Live brand today: handslearning.com — green / white / black
-- First product: DNA Assembly Kit
-- Brand voice: clear, confident, science-forward, evidence-backed, approachable — not academic, not edgy
-- Audience: K–12 educators, district administrators, parents
-- Traction available to cite: 8 pilot programs, 3 school districts, 218+ students surveyed
-- Compliance note: anything touching student data → flag FERPA/COPPA before building
+- Live site being enhanced: rapidenergysolutions.net (currently a bare Squarespace site)
+- Company: locally owned & operated electrical contractor, 303 Main Street, Platteville, CO 80651
+- Phone 970-535-2381 · info@rapidenergysolutions.net · Mon–Fri 6:30 AM–5:00 PM
+- Services: Residential, Commercial, Industrial (oilfield electrical / automation), Hauling & Dirt Work
+- Service area: Weld, Larimer, Adams, Boulder counties (from the company's directory listings)
+- Verbatim brand phrases: "Your trusted partner for all your electrical needs",
+  "Meticulous work for impeccable results", "Protecting Lives and Preserving Values",
+  "creating a brighter future with you"; values — accountability, responsibility, integrity
+- Brand voice: trades-professional, plain-spoken, safety-forward, community-minded — confident, not slick
+- Palette chosen for this build: brand navy + amber energy accent (tokens in `global.css`)
 
-Treat the subject as swappable. Keep brand tokens (color, type, copy) in one place so a rebrand
-is a token change, not a find-and-replace.
+**Copy discipline:** company info and brand phrases above are verbatim from the live site (and
+noted as such in `src/data/site.ts`). Service sub-bullets, section intros, and process copy are
+marketing text written for this enhancement — keep them generic and trade-standard, and flag
+them for client confirmation rather than inventing specific claims (license numbers, years in
+business, project counts, named staff).
+
+All company data lives in `src/data/site.ts`; brand tokens live in `src/styles/global.css`.
+Keep it that way so a copy or color change is one edit, not a find-and-replace.
 
 ---
 
